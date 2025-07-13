@@ -4,7 +4,7 @@ const Admin = require("./models/Admin");
 
 // Connect to MongoDB
 mongoose
-  .connect("mongodb://localhost:27017/protfolio")
+  .connect( process.env.MONGODB_URI)
   .then(() => {
     const password = bcrypt.hashSync("Vignesh@123", 10); 
     return Admin.create({ username: "Vicky_M", password });
