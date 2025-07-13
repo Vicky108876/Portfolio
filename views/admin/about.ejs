@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage About Me</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/Admin_about.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+     <a href="/admin/dashboard" class="position-fixed top-0 start-0 m-3">
+      <img src="/img/arrow-left.png" alt="Back" style="width: 50px" />
+    </a>
+    <div class="about-card">
+      <h2><i class="bi bi-person-circle"></i> Manage About Me</h2>
+
+      <% if (about) { %>
+      <!-- Update About Form -->
+      <form
+        method="POST"
+        action="/admin/about/update/<%= about._id %>"
+        enctype="multipart/form-data"
+      >
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" name="description" rows="5" required>
+<%= about.description %></textarea
+          >
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Upload Image (optional)</label>
+          <input
+            class="form-control"
+            type="file"
+            name="image"
+            accept="image/*"
+          />
+        </div>
+
+        <% if (about.image) { %>
+        <div class="mb-3 text-center">
+          <img
+            src="/uploads/<%= about.image %>"
+            class="preview"
+            alt="About Image"
+          />
+        </div>
+        <% } %>
+
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-primary" type="submit">
+            <i class="bi bi-save"></i> Update
+          </button>
+      </form>
+          <!-- Delete About -->
+          <form
+            method="POST"
+            action="/admin/about/delete/<%= about._id %>"
+            style="display: inline"
+          >
+            <button class="btn btn-danger btn-sm">
+              <i class="bi bi-trash"></i> Delete
+            </button>
+          </form>
+        </div>
+      
+
+      <% } else { %>
+      <!-- Add New About -->
+      <form method="POST" action="/about" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label class="form-label">Describe About Me</label>
+          <textarea
+            class="form-control"
+            name="description"
+            rows="5"
+            required
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Upload Image</label>
+          <input
+            class="form-control"
+            type="file"
+            name="image"
+            accept="image/*"
+          />
+        </div>
+
+        <button class="btn btn-success w-100" type="submit">
+          <i class="bi bi-plus-circle"></i> Add About Info
+        </button>
+      </form>
+      <% } %>
+    </div>
+  </body>
+</html>

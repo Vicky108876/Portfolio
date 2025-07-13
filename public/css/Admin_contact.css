@@ -1,0 +1,72 @@
+body {
+  background-color: #f9f9f9;
+  font-family: "Segoe UI", sans-serif;
+  padding: 30px 15px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #0d6efd;
+  font-weight: 600;
+}
+
+.table-container {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  animation: fadeInUp 0.6s ease-in-out;
+}
+
+.table thead {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 576px) {
+  .table thead {
+    display: none;
+  }
+
+  .table tbody td {
+    display: block;
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  .table tbody td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    width: 50%;
+    padding-right: 15px;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .table-container {
+    padding: 15px;
+  }
+}

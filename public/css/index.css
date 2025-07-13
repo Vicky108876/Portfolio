@@ -1,0 +1,436 @@
+:root {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --hover-color: #66b2ff;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+main {
+  max-width: 960px;
+  margin: auto;
+  padding: 40px 15px 80px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+}
+
+section {
+  margin-bottom: 60px;
+  padding: 60px 15px;
+  animation: fadeInUp 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(40px);
+  color: var(--text-color);
+}
+
+section:nth-child(1) {
+  animation-delay: 0.2s;
+}
+section:nth-child(2) {
+  animation-delay: 0.4s;
+}
+section:nth-child(3) {
+  animation-delay: 0.6s;
+}
+section:nth-child(4) {
+  animation-delay: 0.8s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Home Section */
+#home {
+  background: linear-gradient(135deg, #0dcaf0, #0284c7);
+  border-radius: 12px;
+  padding: 80px 20px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(13, 202, 240, 0.4);
+}
+#home h1 {
+  font-size: 3.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+#home a.btn-primary {
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+}
+#home a.btn-primary:hover {
+  background-color: #0a75b7;
+}
+/* Particle canvas */
+#particles-js {
+  background: #0d1117;
+  z-index: 0;
+}
+.card3d {
+  width: 220px;
+  height: 220px;
+  perspective: 1000px;
+}
+.card3d-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+.card3d:hover .card3d-inner {
+  transform: rotateY(180deg);
+}
+.card3d-front,
+.card3d-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+}
+.card3d-back {
+  background: #212529;
+  transform: rotateY(180deg);
+}
+
+/* Typewriter effect */
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #fff;
+  width: 0;
+  animation: typing 3s steps(35, end) forwards, e 0.75s step-end infinite;
+}
+
+/* Quote Styling */
+.quote-line {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  max-width: 95%;
+  text-align: center;
+}
+
+/* Glow text effect */
+.glow-text {
+  background: linear-gradient(-45deg, #00f0ff, #ff00c8, #00f0ff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glowAnimate 6s ease infinite;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Typewriter cursor */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes e {
+  50% {
+    border-color: transparent;
+  }
+}
+
+/* Gradient glow animation */
+@keyframes glowAnimate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes e-caret {
+  50% {
+    border-color: transparent;
+  }
+}
+
+/* Base resume button style */
+.resume-btn {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #0dcaf0, #0a58ca);
+  color: #fff;
+  font-weight: 300;
+  border: none;
+  border-radius: 0px;
+}
+
+/* Hover 3D effect */
+.resume-btn:hover {
+  background: linear-gradient(145deg, #0a58ca, #0dcaf0);
+  color: #fff;
+}
+
+/* Ripple container */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ripple circle */
+.ripple::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1);
+  animation: ripple-effect 0.6s linear;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+}
+.ripple-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  animation: ripple-effect 0.6s linear;
+  pointer-events: none;
+  transform: scale(0);
+  opacity: 0.4;
+  z-index: 10;
+}
+/* Ripple animation */
+@keyframes ripple-effect {
+  0% {
+    opacity: 0.4;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.5);
+  }
+}
+
+/* About Section */
+#about {
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  padding: 40px 20px;
+}
+#about h2 {
+  color: #0dcaf0;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+#about p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+#about .badge {
+  font-size: 0.9rem;
+  padding: 0.5em 1em;
+  border-radius: 30px;
+}
+#about .about-image {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(13, 202, 240, 0.25);
+}
+
+/* Milestones Counter */
+.counter-box {
+  background-color: #e3f2fd;
+  padding: 20px 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(13, 202, 240, 0.2);
+  transition: transform 0.3s ease;
+}
+.counter-box:hover {
+  transform: scale(1.05);
+}
+.counter-number {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #0d6efd;
+  user-select: none;
+}
+.counter-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #212529;
+}
+.counter-box .plus {
+  font-size: 1.5rem;
+  color: #0d6efd;
+  margin-left: 4px;
+  vertical-align: top;
+  font-weight: bold;
+}
+
+/* Projects Section */
+#projectspage {
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  padding: 40px 20px;
+}
+#projectspage .card-title,
+#projectspage .card-text {
+  color: #212529;
+}
+#projectspage h2 {
+  color: #0dcaf0;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+}
+#projectspage .card {
+  box-shadow: 0 6px 20px rgb(13 202 240 / 0.15);
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+#projectspage .card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 35px rgb(13 202 240 / 0.3);
+}
+#projectspage .card-img-top {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  object-fit: cover;
+  height: 180px;
+}
+#projectspage .btn-dark {
+  background-color: #0d6efd;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+#projectspage .btn-dark:hover {
+  background-color: #084298;
+}
+.project-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-text-container {
+  max-height: 150px;
+  overflow-y: auto;
+  text-align: justify;
+}
+
+.card-text-container::-webkit-scrollbar {
+  height: 0px;
+  width: 0px;
+}
+
+.card-text-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+.card-text-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Fade-up animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.animate-fade-up:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.animate-fade-up:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.animate-fade-up:nth-child(3) {
+  animation-delay: 0.3s;
+}
+/* Contact Section */
+#contact h2 {
+  color: #0dcaf0;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+}
+#contact form {
+  max-width: 600px;
+  margin: auto;
+}
+#contact .form-control {
+  border-radius: 8px;
+  box-shadow: none;
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s ease;
+}
+#contact .form-control:focus {
+  border-color: #0dcaf0;
+  box-shadow: 0 0 6px rgba(13, 202, 240, 0.5);
+}
+#contact button {
+  background-color: #0dcaf0;
+  border: none;
+  font-weight: 600;
+  padding: 12px 0;
+  border-radius: 50px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+#contact button:hover {
+  background-color: #0284c7;
+}
+
+/* Responsive tweaks */
+@media (max-width: 767.98px) {
+  #home h1 {
+    font-size: 2.2rem;
+  }
+  .counter-number {
+    font-size: 1.8rem;
+  }
+}

@@ -1,0 +1,250 @@
+<%- include('./partials/header') %>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+<link rel="stylesheet" href="/css/index.css" />
+<main>
+  <section
+    id="home"
+    class="position-relative mb-5 py-5 text-white overflow-hidden"
+    style="background: url('/img/hero.jpg') center center / contain no-repeat"
+  >
+    <!-- Optional Overlay -->
+    <div
+      class="position-absolute top-0 start-0 w-100 h-100"
+      style="background-color: rgba(0, 0, 0, 0.6); z-index: 0"
+    ></div>
+
+    <!-- Particle Background -->
+    <div
+      id="particles-js"
+      class="position-absolute top-0 start-0 w-100 h-100"
+      style="z-index: 1"
+    ></div>
+
+    <!-- Content -->
+    <div class="container position-relative" style="z-index: 2">
+      <div class="row align-items-center gy-5">
+        <!-- LEFT TEXT -->
+        <div class="col-lg-6 text-center animate__animated animate__fadeInLeft">
+          <div class="card3d mx-auto">
+            <div class="card3d-inner">
+              <div class="card3d-front">
+                <img
+                  src="/uploads/<%= resume.image %>"
+                  alt="Vicky M"
+                  class="img-fluid rounded shadow"
+                  style="
+                    width: 190px;
+                    height: 220px;
+                    object-fit: fill;
+                    border-radius: 12px;
+                  "
+                />
+              </div>
+              <div
+                class="card3d-back d-flex align-items-center justify-content-center bg-dark"
+              >
+                <h5 class="text-light">
+                  Vicky M<br />
+                  I'm also a <br />
+                  FullStack Developer
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- RIGHT IMAGE -->
+        <div class="col-lg-6 text-start animate__animated animate__fadeInRight">
+          <h1 class="display-4 fw-bold text-info text-capitalize">
+            <%= resume.title %>
+          </h1>
+          <h3 class="fw-semibold mb-4 text-warning"><%= resume.role %></h3>
+
+          <% if (resume.url) { %>
+          <a
+            href="/uploads/<%= resume.url %>"
+            class="btn resume-btn btn-lg btn-outline-info px-4 py-2"
+          >
+            <i class="bi bi-download me-2"></i> Grab My Resume
+          </a>
+          <% } %>
+        </div>
+      </div>
+      <br />
+      <h5 class="quote-line typewriter mt-3 mx-auto px-3">
+        <span class="glow-text">"<%= resume.quote %>"</span>
+      </h5>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="row align-items-center gy-4">
+      <div class="col-md-6">
+        <p style="text-align: justify"><%= about?.description %></p>
+        <h4 class="mt-4">Skills:</h4>
+        <% if (skills && skills.length > 0) { %> <% skills.forEach(skill => { %>
+        <span class="badge bg-info text-dark me-2 mb-2"><%= skill.name %></span>
+        <% }) %> <% } else { %>
+        <p>No skills listed yet.</p>
+        <% } %>
+
+        <div class="mt-5">
+          <h4 class="mb-3 text-center" style="color: #0dcaf0">
+            Professional Achievements
+          </h4>
+          <div class="row text-center">
+            <div class="col-4">
+              <div class="counter-box">
+                <div class="counter-number">
+                  <span data-target="<%=achieve.certificate %>">0</span>+
+                </div>
+                <div class="counter-title">Certificates</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="counter-box">
+                <div class="counter-number">
+                  <span data-target="<%=achieve.internship %>">0</span>+
+                </div>
+                <div class="counter-title">Internships</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="counter-box">
+                <div class="counter-number">
+                  <span data-target="<%= projects.length %>">0</span>+
+                </div>
+                <div class="counter-title">Projects</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 text-center">
+        <% if (about?.image) { %>
+        <img
+          src="/uploads/<%= about.image %>"
+          alt="Profile picture"
+          class="about-image img-fluid"
+        />
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projectspage">
+    <div class="container">
+      <h2 class="text-center mb-5">My Projects</h2>
+      <div class="row gy-4">
+        <% if (projects && projects.length > 0) { %> <% projects.forEach(p => {
+        %>
+        <div class="col-md-6 col-lg-4">
+          <div
+            class="card h-100 shadow-sm project-card animate-fade-up bg-dark"
+          >
+            <img
+              src="<%= p.image %>"
+              class="card-img-top"
+              alt="<%= p.title %>"
+            />
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title text-white text-center"><%= p.title %></h5>
+              <div class="card-text-container mb-3">
+                <p class="card-text text-white"><%= p.description %></p>
+              </div>
+              <a
+                href="<%= p.github %>"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-outline-primary mt-auto"
+              >
+                GitHub <i class="bi bi-box-arrow-up-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <% }) %> <% } else { %>
+        <p class="text-center">No projects added yet.</p>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form
+      method="POST"
+      action="/contact"
+      class="mx-auto"
+      style="max-width: 600px"
+    >
+      <input
+        class="form-control mb-3"
+        name="name"
+        placeholder="Name"
+        required
+      />
+      <input
+        class="form-control mb-3"
+        name="email"
+        type="email"
+        placeholder="Email"
+        required
+      />
+      <textarea
+        class="form-control mb-3"
+        name="message"
+        placeholder="Message"
+        rows="4"
+        required
+      ></textarea>
+      <button class="btn btn-primary" type="submit">Send</button>
+    </form>
+  </section>
+</main>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const counters = document.querySelectorAll(".counter-number span");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const counter = entry.target;
+            const target = +counter.getAttribute("data-target");
+            let count = 0;
+            const increment = Math.ceil(target / 100);
+
+            const updateCount = () => {
+              count += increment;
+              if (count >= target) {
+                counter.innerText = target;
+              } else {
+                counter.innerText = count;
+                requestAnimationFrame(updateCount);
+              }
+            };
+
+            updateCount();
+            observer.unobserve(counter);
+          }
+        });
+      },
+      { threshold: 1.0 }
+    );
+
+    counters.forEach((counter) => {
+      observer.observe(counter);
+    });
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<%- include('./partials/footer') %>
