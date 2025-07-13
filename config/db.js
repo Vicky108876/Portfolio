@@ -7,7 +7,7 @@ const connectDB = async () => {
       useUnifiedTopology: true,
       ssl: true,
       tlsAllowInvalidCertificates: false,
-    }););
+    });
     console.log("Connected to MongoDb");
   } catch (error) {
     console.error("Failed to connect ot MongoDb:", error);
