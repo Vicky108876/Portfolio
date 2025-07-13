@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const Resume = require("/projects/My_Protfolio/models/Resume");
-const Skill = require("/projects/My_Protfolio/models/Skills");
-const Project = require("/projects/My_Protfolio/models/Project");
-const Contact = require("/projects/My_Protfolio/models/Contact");
-const About = require("/projects/My_Protfolio/models/About");
-const Achievement = require("/projects/My_Protfolio/models/Achievement");
+const Resume = require("../models/Resume");
+const Skill = require("../models/Skills");
+const Project = require("../models/Project");
+const Contact = require("../models/Contact");
+const About = require("../models/About");
+const Achievement = require("../models/Achievement");
 
 // Single route for rendering all content
 router.get("/", async (req, res) => {
