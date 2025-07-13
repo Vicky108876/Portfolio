@@ -18,11 +18,11 @@ app.use("/", router);
 // Session Setup
 app.use(
   session({
-    secret: "mysecret",
+    secret:process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: "mongodb://localhost:27017/protfolio",
+      mongoUrl: process.env.MONGODB_URI,
     }),
     cookie: { secure: false },
   })
