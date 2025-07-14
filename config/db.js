@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI {
+    await mongoose.connect(process.env.MONGODB_URI, {
   ssl: true,
   sslValidate: false, // ✅ Disables cert validation — necessary for some hosts
 });
