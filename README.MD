@@ -29,8 +29,14 @@ It showcases my skills, projects, resume, and a contact form—all dynamically m
 ---
 
 ## 🚀 Installation
+First create admin
+
+#node create-admin.js
 
 npm init 
+
 npm install
-npm start
+
+npm start or node app.js
+
 
