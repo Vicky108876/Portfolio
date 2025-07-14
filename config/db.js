@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const connectDB = async () => {
   try {
+      mongoose.set('strictQuery', false);
     await mongoose.connect(process.env.MONGODB_URI, {
   ssl: true,
   sslValidate: false, // ✅ Disables cert validation — necessary for some hosts
