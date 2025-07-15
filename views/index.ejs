@@ -32,7 +32,7 @@
             <div class="card3d-inner">
               <div class="card3d-front">
                 <img
-                  src="/uploads/<%= resume.image %>"
+                  src="<%= resume.image %>"
                   alt="Vicky M"
                   class="img-fluid rounded shadow"
                   style="
@@ -64,7 +64,7 @@
 
           <% if (resume.url) { %>
           <a
-            href="/uploads/<%= resume.url %>"
+            href="<%= resume.url %>"
             class="btn resume-btn btn-lg btn-outline-info px-4 py-2"
           >
             <i class="bi bi-download me-2"></i> Grab My Resume
@@ -128,7 +128,7 @@
       <div class="col-md-6 text-center">
         <% if (about?.image) { %>
         <img
-          src="/uploads/<%= about.image %>"
+          src="<%= about.image %>"
           alt="Profile picture"
           class="about-image img-fluid"
         />
