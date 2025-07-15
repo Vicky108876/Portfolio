@@ -2,17 +2,26 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
-const About = require("../../models/About");
-const Admin = require("../../models/Admin");
-const Resume = require("../../models/Resume");
-const Skill = require("../../models/Skills");
-const Project = require("../../models/Project");
-const Contact = require("../../models/Contact");
-const Achievement = require("../../models/Achievement");
+const About = require("/projects/My_Protfolio/models/About");
+const Admin = require("/projects/My_Protfolio/models/Admin");
+const Resume = require("/projects/My_Protfolio/models/Resume");
+const Skill = require("/projects/My_Protfolio/models/Skills");
+const Project = require("/projects/My_Protfolio/models/Project");
+const Contact = require("/projects/My_Protfolio/models/Contact");
+const Achievement = require("/projects/My_Protfolio/models/Achievement");
 const multer = require("multer");
 const path = require("path");
 const { Certificate } = require("crypto");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const fs = require("fs");
 
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: "ddpwgse2b",
+  api_key: "417458735344937",
+  api_secret: "PAFwlqDzV9anUciN8x_hUVw9FPk",
+});
 // Multer setup
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -22,7 +31,6 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname)); // e.g. 162885.jpg
   },
 });
-
 const upload = multer({ storage });
 
 // Middleware to check login
@@ -77,12 +85,41 @@ router.post(
     try {
       await Resume.deleteMany();
 
+      const resumeFile = req.files["resume"]?.[0];
+      const imageFile = req.files["image"]?.[0];
+
+      let resumeUrl = null;
+      let imageUrl = null;
+
+      // Upload resume to Cloudinary
+      if (resumeFile) {
+        const result = await cloudinary.uploader.upload(resumeFile.path, {
+          resource_type: "raw", // for PDF or doc files
+          folder: "resumes",
+        });
+        resumeUrl = result.secure_url;
+        resumeUrl = result.secure_url.replace(
+          "/upload/",
+          "/upload/fl_content_type:application/pdf/"
+        );
+        fs.unlinkSync(resumeFile.path); // delete local file
+      }
+
+      // Upload image to Cloudinary
+      if (imageFile) {
+        const result = await cloudinary.uploader.upload(imageFile.path, {
+          folder: "resume_images",
+        });
+        imageUrl = result.secure_url;
+        fs.unlinkSync(imageFile.path); // delete local file
+      }
+
       const newResume = {
         title: req.body.title,
         role: req.body.role,
         quote: req.body.quote,
-        image: req.files["image"] ? req.files["image"][0].filename : null,
-        url: req.files["resume"] ? req.files["resume"][0].filename : null,
+        image: imageUrl,
+        url: resumeUrl,
       };
 
       await Resume.create(newResume);
@@ -136,29 +173,59 @@ router.get("/about", isLoggedIn, async (req, res) => {
   res.render("admin/about", { about });
 });
 
+// Create About
+// =======================
 router.post("/about", upload.single("image"), async (req, res) => {
-  await About.create({
-    description: req.body.description,
-    image: req.file.filename,
-  });
-  res.redirect("/admin/about");
+  try {
+    let imageUrl = null;
+
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: "about_images",
+      });
+      imageUrl = result.secure_url;
+      fs.unlinkSync(req.file.path); // delete local file
+    }
+
+    await About.create({
+      description: req.body.description,
+      image: imageUrl,
+    });
+
+    res.redirect("/admin/about");
+  } catch (err) {
+    console.error("About upload failed:", err);
+    res.status(500).send("Something went wrong.");
+  }
 });
+
+// =======================
 // Update About
+// =======================
 router.post(
   "/about/update/:id",
   isLoggedIn,
   upload.single("image"),
   async (req, res) => {
-    const updateData = {
-      description: req.body.description,
-    };
+    try {
+      const updateData = {
+        description: req.body.description,
+      };
 
-    if (req.file) {
-      updateData.image = req.file.filename;
+      if (req.file) {
+        const result = await cloudinary.uploader.upload(req.file.path, {
+          folder: "about_images",
+        });
+        updateData.image = result.secure_url;
+        fs.unlinkSync(req.file.path); // delete local file
+      }
+
+      await About.findByIdAndUpdate(req.params.id, updateData);
+      res.redirect("/admin/about");
+    } catch (err) {
+      console.error("About update failed:", err);
+      res.status(500).send("Something went wrong.");
     }
-
-    await About.findByIdAndUpdate(req.params.id, updateData);
-    res.redirect("/admin/about");
   }
 );
 
@@ -215,3 +282,4 @@ router.get("/contacts", isLoggedIn, async (req, res) => {
 });
 
 module.exports = router;
+
