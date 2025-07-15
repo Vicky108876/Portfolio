@@ -16,12 +16,14 @@
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
+    "cloudinary": "^2.7.0",
     "connect-mongo": "^5.1.0",
     "dotenv": "^17.0.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.1",
     "mongoose": "^6.10.1",
-    "multer": "^2.0.1"
+    "multer": "^2.0.1",
+    "multer-storage-cloudinary": "^4.0.0"
   }
 }
