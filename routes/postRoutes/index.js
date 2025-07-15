@@ -241,40 +241,72 @@ router.get("/projects", isLoggedIn, async (req, res) => {
   res.render("admin/projects", { projects });
 });
 
+// Manage Projects
+router.get("/projects", isLoggedIn, async (req, res) => {
+  const projects = await Project.find();
+  res.render("admin/projects", { projects });
+});
+
 router.post(
   "/projects",
   isLoggedIn,
   upload.single("image"),
   async (req, res) => {
-    const { title, description, github } = req.body;
-    const image = "/uploads/" + req.file.filename;
-    await Project.create({ title, description, github, image });
-    res.redirect("/admin/projects");
+    try {
+      const { title, description, github } = req.body;
+      let imageUrl = null;
+
+      if (req.file) {
+        const result = await cloudinary.uploader.upload(req.file.path, {
+          folder: "project_images",
+        });
+        imageUrl = result.secure_url;
+        fs.unlinkSync(req.file.path); // remove local file
+      }
+
+      await Project.create({
+        title,
+        description,
+        github,
+        image: imageUrl,
+      });
+
+      res.redirect("/admin/projects");
+    } catch (err) {
+      console.error("Project creation error:", err);
+      res.status(500).send("Failed to upload project.");
+    }
   }
 );
-
-router.post("/projects/delete/:id", isLoggedIn, async (req, res) => {
-  await Project.findByIdAndDelete(req.params.id);
-  res.redirect("/admin/projects");
-});
-
 router.post(
   "/projects/update/:id",
   isLoggedIn,
   upload.single("image"),
   async (req, res) => {
-    const { title, description, github } = req.body;
-    const updateData = { title, description, github };
+    try {
+      const { title, description, github } = req.body;
+      const updateData = { title, description, github };
 
-    if (req.file) {
-      updateData.image = "/uploads/" + req.file.filename;
+      if (req.file) {
+        const result = await cloudinary.uploader.upload(req.file.path, {
+          folder: "project_images",
+        });
+        updateData.image = result.secure_url;
+        fs.unlinkSync(req.file.path);
+      }
+
+      await Project.findByIdAndUpdate(req.params.id, updateData);
+      res.redirect("/admin/projects");
+    } catch (err) {
+      console.error("Project update error:", err);
+      res.status(500).send("Failed to update project.");
     }
-
-    await Project.findByIdAndUpdate(req.params.id, updateData);
-    res.redirect("/admin/projects");
   }
 );
-
+router.post("/projects/delete/:id", isLoggedIn, async (req, res) => {
+  await Project.findByIdAndDelete(req.params.id);
+  res.redirect("/admin/projects");
+});
 // View Contacts
 router.get("/contacts", isLoggedIn, async (req, res) => {
   const contacts = await Contact.find().sort({ date: -1 });
