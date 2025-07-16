@@ -98,10 +98,6 @@ router.post(
           folder: "resumes",
         });
         resumeUrl = result.secure_url;
-        resumeUrl = result.secure_url.replace(
-          "/upload/",
-          "/upload/fl_content_type:application/pdf/"
-        );
         fs.unlinkSync(resumeFile.path); // delete local file
       }
 
