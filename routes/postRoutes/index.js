@@ -94,7 +94,6 @@ router.post(
       // Upload resume to Cloudinary
       if (resumeFile) {
         const result = await cloudinary.uploader.upload(resumeFile.path, {
-          resource_type: "raw", // for PDF or doc files
           folder: "resumes",
         });
         resumeUrl = result.secure_url;
