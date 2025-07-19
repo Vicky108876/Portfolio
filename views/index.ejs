@@ -80,11 +80,13 @@
   </section>
 
   <!-- About Section -->
-  <section id="about">
+   <section id="about">
     <h2>About Me</h2>
     <div class="row align-items-center gy-4">
+      <!-- Left Column: Description + Skills + Achievements -->
       <div class="col-md-6">
         <p style="text-align: justify"><%= about?.description %></p>
+
         <h4 class="mt-4">Skills:</h4>
         <% if (skills && skills.length > 0) { %> <% skills.forEach(skill => { %>
         <span class="badge bg-info text-dark me-2 mb-2"><%= skill.name %></span>
@@ -92,51 +94,84 @@
         <p>No skills listed yet.</p>
         <% } %>
 
+        <!-- Achievements -->
         <div class="mt-5">
-          <h4 class="mb-3 text-center" style="color: #0dcaf0">
+          <h4
+            class="mb-3 text-center fw-bold"
+            style="
+              background: linear-gradient(to right, #0dcaf0, #0d6efd);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+            "
+          >
             Professional Achievements
           </h4>
+
           <div class="row text-center">
-            <div class="col-4">
+            <!-- Certificates -->
+            <div class="col-12 col-md-4 mb-4">
               <div class="counter-box">
-                <div class="counter-number">
-                  <span data-target="<%=achieve.certificate %>">0</span>+
+                <div class="mb-2">
+                  <i class="bi bi-award-fill fs-1 text-info"></i>
                 </div>
-                <div class="counter-title">Certificates</div>
+                <div class="counter-number fs-2 fw-bold text-dark">
+                  <span class="count" data-target="<%= achieve.certificate %>"
+                    >0</span
+                  >+
+                </div>
+                <div class="counter-title text-muted fw-medium">
+                  Certificates
+                </div>
               </div>
             </div>
-            <div class="col-4">
+
+            <!-- Internships -->
+            <div class="col-12 col-md-4 mb-4">
               <div class="counter-box">
-                <div class="counter-number">
-                  <span data-target="<%=achieve.internship %>">0</span>+
+                <div class="mb-2">
+                  <i class="bi bi-briefcase-fill fs-1 text-success"></i>
                 </div>
-                <div class="counter-title">Internships</div>
+                <div class="counter-number fs-2 fw-bold text-dark">
+                  <span class="count" data-target="<%= achieve.internship %>"
+                    >0</span
+                  >+
+                </div>
+                <div class="counter-title text-muted fw-medium">
+                  Internships
+                </div>
               </div>
             </div>
-            <div class="col-4">
+
+            <!-- Projects -->
+            <div class="col-12 col-md-4 mb-4">
               <div class="counter-box">
-                <div class="counter-number">
-                  <span data-target="<%= projects.length %>">0</span>+
+                <div class="mb-2">
+                  <i class="bi bi-code-slash fs-1 text-warning"></i>
                 </div>
-                <div class="counter-title">Projects</div>
+                <div class="counter-number fs-2 fw-bold text-dark">
+                  <span class="count" data-target="<%= projects.length %>"
+                    >0</span
+                  >+
+                </div>
+                <div class="counter-title text-muted fw-medium">Projects</div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Right Column: Profile Image -->
       <div class="col-md-6 text-center">
         <% if (about?.image) { %>
         <img
           src="<%= about.image %>"
           alt="Profile picture"
-          class="about-image img-fluid"
+          class="about-image img-fluid rounded"
         />
         <% } %>
       </div>
     </div>
   </section>
-
   <!-- Projects Section -->
   <section id="projectspage">
     <div class="container">
