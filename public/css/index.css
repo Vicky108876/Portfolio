@@ -112,16 +112,20 @@ section:nth-child(4) {
   overflow: hidden;
   white-space: nowrap;
   border-right: 2px solid #fff;
-  width: 0;
   animation: typing 3s steps(35, end) forwards, e 0.75s step-end infinite;
+  width: 0;
+  display: inline-block;
+  max-width: 100%;
 }
-
-/* Quote Styling */
+/* quote line */
 .quote-line {
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-size: clamp(1rem, 4vw, 1.5rem); /* More responsive */
   font-weight: 600;
-  max-width: 95%;
+  width: 100%;
+  max-width: 100%;
   text-align: center;
+  padding: 0 10px;
+  word-break: break-word; /* Prevent overflow on long words */
 }
 
 /* Glow text effect */
