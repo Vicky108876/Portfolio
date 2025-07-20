@@ -111,7 +111,6 @@ section:nth-child(4) {
 .typewriter {
   overflow: hidden;
   white-space: nowrap;
-  border-right: 2px solid #fff;
   animation: typing 3s steps(35, end) forwards, e 0.75s step-end infinite;
   width: 0;
   display: inline-block;
@@ -119,7 +118,7 @@ section:nth-child(4) {
 }
 /* quote line */
 .quote-line {
-  font-size: clamp(1rem, 4vw, 1.5rem); /* More responsive */
+  font-size: clamp(1rem, 2vw, 1.5rem); /* More responsive */
   font-weight: 600;
   width: 100%;
   max-width: 100%;
